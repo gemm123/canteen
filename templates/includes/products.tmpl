@@ -1,0 +1,13 @@
+{{ template "base.tmpl" . }}
+
+{{ define "content.tmpl" }}
+
+{{ range $product := .data }}
+{{ $product.Name }}
+{{ $product.Image }}
+{{ $product.Desc }}
+{{ $product.Price }}
+{{ $product.Time }}
+{{ end }}
+
+{{ end }}

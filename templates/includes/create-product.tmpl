@@ -1,0 +1,57 @@
+{{ template "base.tmpl" . }}
+
+{{ define "content.tmpl" }}
+
+<div class="container">
+    <form action="/create-product" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="" placeholder="" name="name">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Description</label>
+            <textarea class="form-control" id="" rows="3" name="desc"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Price</label>
+            <input type="text" class="form-control" name="price" id="price">
+        </div>
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Image</label>
+            <input class="form-control" type="file" id="formFile" name="image">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{{ end }}
+
+{{ define "js.tmpl" }}
+
+<script>
+    var dengan_rupiah = document.getElementById('price');
+    dengan_rupiah.addEventListener('keyup', function(e)
+    {
+        dengan_rupiah.value = formatRupiah(this.value, 'Rp. ');
+    });
+    
+    /* Fungsi */
+    function formatRupiah(angka, prefix)
+    {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split    = number_string.split(','),
+            sisa     = split[0].length % 3,
+            rupiah     = split[0].substr(0, sisa),
+            ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+            
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+        
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
+</script>
+
+{{ end }}
