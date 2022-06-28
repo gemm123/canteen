@@ -42,6 +42,7 @@ func main() {
 	r.GET("/products", controller.Products)
 	r.GET("/create-product", controller.CreateProduct)
 	r.POST("/create-product", controller.PostCreateProduct)
+	r.GET("/buy-product/:id", controller.BuyProduct)
 
 	r.Run()
 }

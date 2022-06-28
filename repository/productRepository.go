@@ -31,7 +31,18 @@ func (r *repository) FindAllProduct() ([]models.Product, error) {
 	return products, nil
 }
 
+func (r *repository) FindProductByID(id int) (models.Product, error) {
+	var product models.Product
+	err := r.DB.First(&product, id).Error
+	return product, err
+}
+
 func (r *repository) CreateProduct(product models.Product) (models.Product, error) {
 	err := r.DB.Create(&product).Error
 	return product, err
+}
+
+func (r *repository) DeleteProduct(product models.Product) error {
+	err := r.DB.Unscoped().Delete(&product).Error
+	return err
 }

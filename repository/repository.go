@@ -15,5 +15,7 @@ func NewRepository(DB *gorm.DB) *repository {
 
 type Repository interface {
 	FindAllProduct() ([]models.Product, error)
+	FindProductByID(id int) (models.Product, error)
 	CreateProduct(product models.Product) (models.Product, error)
+	DeleteProduct(product models.Product) error
 }

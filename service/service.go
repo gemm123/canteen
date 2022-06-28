@@ -16,4 +16,5 @@ func NewService(repository repository.Repository) *service {
 type Service interface {
 	FindAllProduct() ([]models.Product, error)
 	CreateProduct(product models.Product) (models.Product, error)
+	DeleteProduct(id int) error
 }

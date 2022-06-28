@@ -8,5 +8,5 @@ type Product struct {
 	Image string `gorm:"type:varchar(255)"`
 	Desc  string `gorm:"type:varchar(255)"`
 	Price string `gorm:"type:varchar(255)"`
-	Time  string `gorm:"-:migration"`
+	Time  string `gorm:"-:all"`
 }
