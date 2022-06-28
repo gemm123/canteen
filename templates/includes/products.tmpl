@@ -2,15 +2,36 @@
 
 {{ define "content.tmpl" }}
 
-<a href="/create-product">Add Product</a>
+<a href="/create-product" class="btn btn-primary">Add Product</a> <br>
 
-{{ range $product := .data }}
-{{ $product.Name }}
-{{ $product.Image }}
-{{ $product.Desc }}
-{{ $product.Price }}
-{{ $product.Time }}
-<a href="/buy-product/{{ $product.ID }}">Buy</a>
-{{ end }}
-
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Modified</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range $product := .data }}
+                        <tr>
+                            <td> 
+                                <img src="{{ $product.Image }}" alt="{{ $product.Name }}" class="rounded-circle" height="50px" width="50px"> {{ $product.Name }}
+                            </td>
+                            <td>{{ $product.Desc }}</td>
+                            <td>{{ $product.Time }}</td>
+                            <td>{{ $product.Price }}</td>
+                            <td><a href="/buy-product/{{ $product.ID }}" class="btn btn-outline-primary">Buy</a></td>
+                        </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {{ end }}
