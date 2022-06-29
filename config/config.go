@@ -22,7 +22,7 @@ func ConfigDB(dsn string) {
 }
 
 func MigrateDB() {
-	DB.AutoMigrate(&models.Product{})
+	DB.AutoMigrate(&models.Product{}, &models.Money{})
 }
 
 func CloseDB() {

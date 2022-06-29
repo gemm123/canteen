@@ -17,4 +17,6 @@ type Service interface {
 	FindAllProduct() ([]models.Product, error)
 	CreateProduct(product models.Product) (models.Product, error)
 	DeleteProduct(id int) error
+	GetCash() (models.Money, error)
+	UpdateCash(id int, moneyRequest models.Money) (models.Money, error)
 }

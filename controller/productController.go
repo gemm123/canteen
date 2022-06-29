@@ -8,28 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (ctr *controller) Home(c *gin.Context) {
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{})
-}
-
-func (ctr *controller) Products(c *gin.Context) {
-	products, err := ctr.service.FindAllProduct()
-	if err != nil {
-		c.HTML(http.StatusBadRequest, "products.tmpl", gin.H{
-			"data": err,
-		})
-		return
-	}
-
-	c.HTML(http.StatusOK, "products.tmpl", gin.H{
-		"data": products,
-	})
-}
-
-func (ctr *controller) CreateProduct(c *gin.Context) {
-	c.HTML(http.StatusOK, "create-product.tmpl", gin.H{})
-}
-
 func (ctr *controller) PostCreateProduct(c *gin.Context) {
 	name := c.PostForm("name")
 	desc := c.PostForm("desc")
