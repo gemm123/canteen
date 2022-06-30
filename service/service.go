@@ -19,4 +19,5 @@ type Service interface {
 	DeleteProduct(id int) error
 	GetCash() (models.Money, error)
 	UpdateCash(id int, moneyRequest models.Money) (models.Money, error)
+	CreateUser(user models.User) (models.User, error)
 }
