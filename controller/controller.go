@@ -42,3 +42,11 @@ func (ctr *controller) Products(c *gin.Context) {
 func (ctr *controller) CreateProduct(c *gin.Context) {
 	c.HTML(http.StatusOK, "create-product.tmpl", gin.H{})
 }
+
+func (ctr *controller) Login(c *gin.Context) {
+	c.HTML(http.StatusOK, "login.tmpl", gin.H{})
+}
+
+func (ctr *controller) Register(c *gin.Context) {
+	c.HTML(http.StatusOK, "register.tmpl", gin.H{})
+}

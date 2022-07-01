@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (ctr *controller) PostUser(c *gin.Context) {
+func (ctr *controller) PostRegister(c *gin.Context) {
 	id := c.PostForm("id")
 	password := c.PostForm("password")
 
@@ -41,7 +41,10 @@ func (ctr *controller) PostUser(c *gin.Context) {
 		Password: passwordHashed,
 	}
 
-	ctr.service.CreateUser(newUser)
+	_, err = ctr.service.CreateUser(newUser)
+	if err != nil {
+		return
+	}
 
 	c.Redirect(http.StatusFound, "/login")
 }
