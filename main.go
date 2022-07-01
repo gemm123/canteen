@@ -45,6 +45,7 @@ func main() {
 	r.GET("/buy-product/:id", controller.BuyProduct)
 	r.POST("/cash", controller.UpdateCash)
 	r.GET("/login", controller.Login)
+	r.POST("/login", controller.PostLogin)
 	r.GET("/register", controller.Register)
 	r.POST("/register", controller.PostRegister)
 

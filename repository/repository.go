@@ -22,4 +22,5 @@ type Repository interface {
 	GetCashByID(id int) (models.Money, error)
 	UpdateCash(money models.Money) (models.Money, error)
 	CreateUser(user models.User) (models.User, error)
+	GetUser(id int) (models.User, error)
 }

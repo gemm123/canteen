@@ -48,3 +48,21 @@ func (ctr *controller) PostRegister(c *gin.Context) {
 
 	c.Redirect(http.StatusFound, "/login")
 }
+
+func (ctr *controller) PostLogin(c *gin.Context) {
+	id := c.PostForm("id")
+	password := c.PostForm("password")
+
+	idString, _ := strconv.Atoi(id)
+	user, err := ctr.service.LoginUser(idString)
+	if err != nil {
+		return
+	}
+
+	ok := helper.CheckPasswordHash(password, user.Password)
+	if !ok {
+		return
+	}
+
+	c.Redirect(http.StatusFound, "/")
+}

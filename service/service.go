@@ -20,4 +20,5 @@ type Service interface {
 	GetCash() (models.Money, error)
 	UpdateCash(id int, moneyRequest models.Money) (models.Money, error)
 	CreateUser(user models.User) (models.User, error)
+	LoginUser(id int) (models.User, error)
 }
