@@ -7,6 +7,7 @@ import (
 
 	"github.com/gemm123/canteen/helper"
 	"github.com/gemm123/canteen/models"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -63,6 +64,23 @@ func (ctr *controller) PostLogin(c *gin.Context) {
 	if !ok {
 		return
 	}
+
+	session := sessions.Default(c)
+	session.Set("id", id)
+	err = session.Save()
+	if err != nil {
+		return
+	}
+	authenticated = 1
+
+	c.Redirect(http.StatusFound, "/")
+}
+
+func (ctr *controller) Logout(c *gin.Context) {
+	session := sessions.Default(c)
+	session.Delete("id")
+	session.Save()
+	authenticated = 0
 
 	c.Redirect(http.StatusFound, "/")
 }

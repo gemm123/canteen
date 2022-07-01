@@ -5,8 +5,11 @@ import (
 	"net/http"
 
 	"github.com/gemm123/canteen/service"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
+
+var authenticated int
 
 type controller struct {
 	service service.Service
@@ -17,7 +20,12 @@ func NewController(service service.Service) *controller {
 }
 
 func (ctr *controller) Home(c *gin.Context) {
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{})
+	session := sessions.Default(c)
+	id := session.Get("id")
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{
+		"id":            id,
+		"authenticated": authenticated,
+	})
 }
 
 func (ctr *controller) Products(c *gin.Context) {
@@ -33,9 +41,14 @@ func (ctr *controller) Products(c *gin.Context) {
 		return
 	}
 
+	session := sessions.Default(c)
+	id := session.Get("id")
+
 	c.HTML(http.StatusOK, "products.tmpl", gin.H{
-		"data":  products,
-		"money": money,
+		"data":          products,
+		"money":         money,
+		"id":            id,
+		"authenticated": authenticated,
 	})
 }
 

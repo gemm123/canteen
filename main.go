@@ -10,6 +10,8 @@ import (
 	"github.com/gemm123/canteen/render"
 	"github.com/gemm123/canteen/repository"
 	"github.com/gemm123/canteen/service"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -33,6 +35,7 @@ func main() {
 	r := gin.Default()
 	r.HTMLRender = render.LoadTemplates("./templates")
 	r.Static("/static", "./static")
+	r.Use(sessions.Sessions("mysession", cookie.NewStore([]byte("secret"))))
 
 	repository := repository.NewRepository(config.DB)
 	service := service.NewService(repository)
@@ -48,6 +51,7 @@ func main() {
 	r.POST("/login", controller.PostLogin)
 	r.GET("/register", controller.Register)
 	r.POST("/register", controller.PostRegister)
+	r.GET("/logout", controller.Logout)
 
 	r.Run()
 }
