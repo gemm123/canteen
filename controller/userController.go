@@ -51,6 +51,9 @@ func (ctr *controller) PostRegister(c *gin.Context) {
 
 	_, err = ctr.service.CreateUser(newUser)
 	if err != nil {
+		session.Set("err", "id has been registered")
+		session.Save()
+		c.Redirect(http.StatusFound, "/register")
 		return
 	}
 
