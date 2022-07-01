@@ -14,9 +14,13 @@ import (
 func (ctr *controller) PostRegister(c *gin.Context) {
 	id := c.PostForm("id")
 	password := c.PostForm("password")
+	session := sessions.Default(c)
 
 	splitID := strings.Split(id, "")
 	if len(splitID) != 5 {
+		session.Set("err", "ID must 5 character number")
+		session.Save()
+		c.Redirect(http.StatusFound, "/register")
 		return
 	}
 
@@ -28,6 +32,9 @@ func (ctr *controller) PostRegister(c *gin.Context) {
 	result, _ := strconv.Atoi(resultString)
 
 	if sum != result {
+		session.Set("err", "2 last digits must the sum of 3 first digits")
+		session.Save()
+		c.Redirect(http.StatusFound, "/register")
 		return
 	}
 
@@ -53,19 +60,25 @@ func (ctr *controller) PostRegister(c *gin.Context) {
 func (ctr *controller) PostLogin(c *gin.Context) {
 	id := c.PostForm("id")
 	password := c.PostForm("password")
+	session := sessions.Default(c)
 
 	idString, _ := strconv.Atoi(id)
 	user, err := ctr.service.LoginUser(idString)
 	if err != nil {
+		session.Set("err", "wrong id or password")
+		session.Save()
+		c.Redirect(http.StatusFound, "/login")
 		return
 	}
 
 	ok := helper.CheckPasswordHash(password, user.Password)
 	if !ok {
+		session.Set("err", "wrong id or password")
+		session.Save()
+		c.Redirect(http.StatusFound, "/login")
 		return
 	}
 
-	session := sessions.Default(c)
 	session.Set("id", id)
 	err = session.Save()
 	if err != nil {

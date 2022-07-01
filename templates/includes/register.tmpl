@@ -9,6 +9,12 @@
           <div class="card-body p-4 p-sm-5">
             <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
             <form action="/register" method="post">
+              {{ if ne .err nil }}<div class="alert alert-danger d-flex align-items-center" role="alert">
+                <div>
+                  {{ .err }}
+                </div>
+              </div>
+              {{ end }}
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="id">
                 <label for="floatingInput">Student ID</label>

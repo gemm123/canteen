@@ -57,9 +57,21 @@ func (ctr *controller) CreateProduct(c *gin.Context) {
 }
 
 func (ctr *controller) Login(c *gin.Context) {
-	c.HTML(http.StatusOK, "login.tmpl", gin.H{})
+	session := sessions.Default(c)
+	err := session.Get("err")
+	session.Delete("err")
+	session.Save()
+	c.HTML(http.StatusOK, "login.tmpl", gin.H{
+		"err": err,
+	})
 }
 
 func (ctr *controller) Register(c *gin.Context) {
-	c.HTML(http.StatusOK, "register.tmpl", gin.H{})
+	session := sessions.Default(c)
+	err := session.Get("err")
+	session.Delete("err")
+	session.Save()
+	c.HTML(http.StatusOK, "register.tmpl", gin.H{
+		"err": err,
+	})
 }

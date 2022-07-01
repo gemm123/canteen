@@ -7,6 +7,9 @@
         <div class="col">
             <h1>Home Page</h1>
             <h1>{{ .id }}</h1>
+            {{ with .err }}
+                <h1>ada error</h1>
+            {{ end }}
         </div>
     </div>
 </div>
