@@ -1,0 +1,22 @@
+version: "3"
+services:
+  web-canteen:
+      build: .
+      ports: 
+        - 8080:8080 
+      environment:
+        - DB_HOST=canteen-postgres
+        - DB_USER=postgres
+        - DB_PASS=postgres
+        - DB_NAME=canteen
+      depends_on:
+        - canteen-postgres
+  canteen-postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=canteen
+  
