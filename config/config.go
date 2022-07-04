@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/gemm123/canteen/models"
+	"github.com/gemm123/canteen/seeds"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -23,6 +24,9 @@ func ConfigDB(dsn string) {
 
 func MigrateDB() {
 	DB.AutoMigrate(&models.Product{}, &models.Money{}, &models.User{})
+	if err := seeds.All().Run(DB); err != nil {
+		log.Fatal("failerd seed to database")
+	}
 }
 
 func CloseDB() {
