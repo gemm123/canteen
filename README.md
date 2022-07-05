@@ -12,7 +12,8 @@ Before buy product, student must register. With registration, it will only stude
 <li>Docker</li>
 
 ## Installation and Run Program
-Clone repository and place at %GOPATH%/src/
+Clone repository and place at %GOPATH%/src/ <br>
+Dont forget to configuration environment variable
 
      go run main.go
      
@@ -21,3 +22,5 @@ If you have docker
      docker compose up
      
 if there's error just type command docker above again
+
+
